@@ -35,7 +35,7 @@ X_test,  y_test  = create_window(test_data, 60)
 # ==== MLflow setup ====
 username = "adityanugraha7251"  # replace with your DagsHub username if different
 repo = "Workflow-CI"           # replace with your repo name if different
-token = os.environ.get("DAGS_TOKEN")  # gets the token you exported in terminal
+token = "702e831f160224cdd6f1368f247bf4086f8a8b2c"  # gets the token you exported in terminal
 
 mlflow.set_tracking_uri(f"https://{username}:{token}@dagshub.com/{username}/{repo}.mlflow")
 mlflow.set_experiment("ci_retrain_model")
