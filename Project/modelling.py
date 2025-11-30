@@ -11,7 +11,7 @@ from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 
 # ==== Load dataset ====
-df = pd.read_csv("MLProject/aapl.us.txt_preprocessing.csv")
+df = pd.read_csv("Project/aapl.us.txt_preprocessing.csv")
 
 # Menggunakan fitur Close_norm
 dataset = df["Close_norm"].values.reshape(-1, 1)
