@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/0/44d2b5ca17bd4609b357255b6ce0b946/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 44d2b5ca17bd4609b357255b6ce0b946
+run_name: intrigued-rook-121
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1764488462693
+status: 1
+tags: []
+user_id: mac
