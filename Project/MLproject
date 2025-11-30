@@ -1,9 +1,7 @@
-name: workflow_ci_project
+name: workflow_ci
 
-conda_env: MLProject/conda.yaml
+conda_env: project/conda.yaml
 
 entry_points:
   main:
-    command: "python MLProject/modelling.py"
-
-
+    command: "python Project/modelling.py"
