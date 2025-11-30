@@ -3,16 +3,12 @@ import numpy as np
 import math
 import mlflow
 import mlflow.sklearn
-import os
 
 from sklearn.svm import SVR
 from sklearn.metrics import mean_squared_error
-from sklearn.model_selection import train_test_split
 
 # ==== Load dataset ====
 df = pd.read_csv("Project/aapl.us.txt_preprocessing.csv")
-
-# Menggunakan fitur Close_norm
 dataset = df["Close_norm"].values.reshape(-1, 1)
 
 # ==== Windowing function ====
@@ -25,7 +21,6 @@ def create_window(data, window_size=60):
 
 # ==== Split Train/Test ====
 training_data_len = math.ceil(len(dataset) * 0.8)
-
 train_data = dataset[:training_data_len]
 test_data  = dataset[training_data_len - 60:]
 
@@ -33,26 +28,18 @@ X_train, y_train = create_window(train_data, 60)
 X_test,  y_test  = create_window(test_data, 60)
 
 # ==== MLflow setup ====
-username = "adityanugraha7251"  
-repo = "Workflow-CI"           
-token = "702e831f160224cdd6f1368f247bf4086f8a8b2c"  # gets the token you exported in terminal
-
 mlflow.set_tracking_uri("file:///Users/mac/Desktop/workflow/mlruns")
 mlflow.set_experiment("ci_retrain_model")
 
+# ==== Training and Logging ====
 with mlflow.start_run():
-    mlflow.autolog()
-
     model = SVR(kernel="rbf", C=100, gamma=0.1)
     model.fit(X_train, y_train)
 
-    # ==== Evaluation ====
     predictions = model.predict(X_test)
     rmse = np.sqrt(mean_squared_error(y_test, predictions))
-
     print("RMSE:", rmse)
 
+    # Log metrics and model
     mlflow.log_metric("RMSE", rmse)
-
-    mlflow.keras.log_model(model, "model")
-
+    mlflow.sklearn.log_model(model, "model")
