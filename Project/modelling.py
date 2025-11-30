@@ -3,6 +3,7 @@ import numpy as np
 import math
 import mlflow
 import mlflow.sklearn
+import os
 
 from sklearn.svm import SVR
 from sklearn.metrics import mean_squared_error
@@ -32,7 +33,11 @@ X_train, y_train = create_window(train_data, 60)
 X_test,  y_test  = create_window(test_data, 60)
 
 # ==== MLflow setup ====
-mlflow.set_tracking_uri("https://dagshub.com/adityanugraha7251/Workflow-CI.mlflow")
+username = "adityanugraha7251"  # replace with your DagsHub username if different
+repo = "Workflow-CI"           # replace with your repo name if different
+token = os.environ.get("DAGS_TOKEN")  # gets the token you exported in terminal
+
+mlflow.set_tracking_uri(f"https://{username}:{token}@dagshub.com/{username}/{repo}.mlflow")
 mlflow.set_experiment("ci_retrain_model")
 
 with mlflow.start_run():
