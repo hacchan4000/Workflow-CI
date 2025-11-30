@@ -4,8 +4,6 @@ import math
 import mlflow
 import mlflow.sklearn
 
-
-
 from sklearn.svm import SVR
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
@@ -34,7 +32,7 @@ X_train, y_train = create_window(train_data, 60)
 X_test,  y_test  = create_window(test_data, 60)
 
 # ==== MLflow setup ====
-mlflow.set_tracking_uri("mlruns")  # lokal, tidak perlu server
+mlflow.set_tracking_uri("https://dagshub.com/adityanugraha7251/Workflow-CI.mlflow")
 mlflow.set_experiment("ci_retrain_model")
 
 with mlflow.start_run():

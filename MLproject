@@ -5,3 +5,5 @@ conda_env: Project/conda.yaml
 entry_points:
   main:
     command: "python Project/modelling.py"
+
+tracking_uri: https://dagshub.com/adityanugraha7251/Workflow-CI.mlflow
