@@ -1,0 +1,7 @@
+name: stock_lstm_training
+
+conda_env: conda.yaml
+
+entry_points:
+  main:
+    command: "python modelling.py"

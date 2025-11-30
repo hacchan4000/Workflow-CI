@@ -1,14 +1,13 @@
-name: stock_env
+name: mlflow-lstm-env
 channels:
-  - conda-forge
   - defaults
+  - conda-forge
 dependencies:
   - python=3.10
   - pip
   - pip:
-      - numpy
-      - pandas
-      - scikit-learn
       - mlflow
       - tensorflow
-      - keras
+      - scikit-learn
+      - pandas
+      - numpy

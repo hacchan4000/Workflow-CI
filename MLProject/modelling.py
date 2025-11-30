@@ -9,7 +9,7 @@ from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 
 # ==== Load dataset ====
-df = pd.read_csv("Membangun_model/aapl.us.txt_preprocessing.csv")
+df = pd.read_csv("MLProject/aapl.us.txt_preprocessing.csv")
 
 # Menggunakan fitur Close_norm
 dataset = df["Close_norm"].values.reshape(-1, 1)
@@ -33,7 +33,7 @@ X_test,  y_test  = create_window(test_data, 60)
 
 # ==== MLflow setup ====
 mlflow.set_tracking_uri("mlruns")  # lokal, tidak perlu server
-mlflow.set_experiment("stock_prediction")
+mlflow.set_experiment("ci_retrain_model")
 
 with mlflow.start_run():
     mlflow.autolog()
@@ -49,4 +49,5 @@ with mlflow.start_run():
 
     mlflow.log_metric("RMSE", rmse)
 
-    mlflow.sklearn.log_model(model, "model")
+    mlflow.keras.log_model(model, "model")
+

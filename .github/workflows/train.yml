@@ -1,0 +1,33 @@
+name: CI-Train-ML-Model
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Conda
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          activate-environment: mlflow-lstm-env
+          environment-file: MLProject/conda.yaml
+          auto-activate-base: false
+
+      - name: Train Model via MLflow Project
+        run: |
+          cd MLProject
+          mlflow run . -e main
+
+      - name: Upload model artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: lstm-model
+          path: MLProject/mlruns/
