@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/0/ec6687ca8a214fe49fce1abe0ff8b90c/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: ec6687ca8a214fe49fce1abe0ff8b90c
+run_name: smiling-bug-66
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1764485490708
+status: 1
+tags: []
+user_id: mac
