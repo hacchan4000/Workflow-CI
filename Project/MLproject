@@ -6,4 +6,3 @@ entry_points:
   main:
     command: "python modelling.py"
 
-tracking_uri: https://dagshub.com/adityanugraha7251/Workflow-CI.mlflow
