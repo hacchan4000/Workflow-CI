@@ -7,7 +7,6 @@ import mlflow.sklearn
 from sklearn.svm import SVR
 from sklearn.metrics import mean_squared_error
 
-# ==== Load dataset ====
 df = pd.read_csv("Project/aapl.us.txt_preprocessing.csv")
 dataset = df["Close_norm"].values.reshape(-1, 1)
 
