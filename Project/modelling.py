@@ -11,7 +11,7 @@ from sklearn.metrics import mean_squared_error
 df = pd.read_csv("Project/aapl.us.txt_preprocessing.csv")
 dataset = df["Close_norm"].values.reshape(-1, 1)
 
-# ==== Windowing function ====
+
 def create_window(data, window_size=60):
     X, y = [], []
     for i in range(window_size, len(data)):
