@@ -28,7 +28,7 @@ X_test,  y_test  = create_window(test_data, 60)
 
 
 
-mlflow.set_tracking_uri("file:///Users/mac/Desktop/workflow/mlruns")
+mlflow.set_tracking_uri("mlruns")
 mlflow.set_experiment("ci_retrain_model")
 
 
