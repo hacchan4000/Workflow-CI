@@ -42,4 +42,4 @@ jobs:
       # 5. Run MLflow Project
       - name: Run MLflow Project
         run: |
-          mlflow run Project --env-manager=local 
+          python Project/modelling.py 
