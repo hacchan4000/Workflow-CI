@@ -26,11 +26,11 @@ test_data  = dataset[training_data_len - 60:]
 X_train, y_train = create_window(train_data, 60)
 X_test,  y_test  = create_window(test_data, 60)
 
-# ==== MLflow setup ====
+
 mlflow.set_tracking_uri("file:///Users/mac/Desktop/workflow/mlruns")
 mlflow.set_experiment("ci_retrain_model")
 
-# ==== Training and Logging ====
+
 with mlflow.start_run():
     model = SVR(kernel="rbf", C=100, gamma=0.1)
     model.fit(X_train, y_train)
