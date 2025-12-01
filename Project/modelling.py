@@ -27,6 +27,7 @@ X_train, y_train = create_window(train_data, 60)
 X_test,  y_test  = create_window(test_data, 60)
 
 
+
 mlflow.set_tracking_uri("file:///Users/mac/Desktop/workflow/mlruns")
 mlflow.set_experiment("ci_retrain_model")
 
@@ -34,6 +35,10 @@ mlflow.set_experiment("ci_retrain_model")
 with mlflow.start_run():
     model = SVR(kernel="rbf", C=100, gamma=0.1)
     model.fit(X_train, y_train)
+    
+    input_example = X_test[:1]   # one row example
+    signature = mlflow.models.signature.infer_signature(X_train, model.predict(X_train))
+
 
     predictions = model.predict(X_test)
     rmse = np.sqrt(mean_squared_error(y_test, predictions))
@@ -41,4 +46,9 @@ with mlflow.start_run():
 
     # Log metrics and model
     mlflow.log_metric("RMSE", rmse)
-    mlflow.sklearn.log_model(model, "model")
+    mlflow.sklearn.log_model(model, 
+                             name="model",
+                             input_example=input_example,
+                             signature=signature
+                             )
+
