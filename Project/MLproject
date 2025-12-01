@@ -1,10 +1,9 @@
-name: workflow_ci
+name: stock_prediction_project
 
 conda_env: conda.yaml
 
 entry_points:
   main:
-    command: "python modelling.py"
     parameters:
-      run_id: {type: string}
-
+      data_path: {type: str, default: "aapl.us.txt_preprocessing.csv"}
+    command: "python modelling.py --data_path {data_path}"
