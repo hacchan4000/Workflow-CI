@@ -8,27 +8,33 @@ on:
     branches:
       - main
 
+env:
+  CSV_URL: "Project/aapl.us.txt_preprocessing.csv"
+
 jobs:
   train:
     runs-on: ubuntu-latest
 
     steps:
 
-      # 1. Checkout repository
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      # 2. Setup Miniconda (for MLflow Projects)
-      # TensorFlow & mlflow paling stabil di 3.10
 
-      # 3. Verify folder structure
-      - name: Check Project files
+      # 1. Set up python 3.12
+      - name: Set up Python 3.12.7
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12.7"
+
+      # Check Env Variables
+      - name: Check Env
         run: |
-          echo "Available files:"
-          ls -R .
+          echo $CSV_URL
+      
+     
 
       # 4. Install mlflow in base conda env (cannot install inside project)
-      - name: Install MLflow
+      - name: Install dependencies
         run: |
           conda install -y pip
           pip install mlflow
@@ -36,4 +42,4 @@ jobs:
       # 5. Run MLflow Project
       - name: Run MLflow Project
         run: |
-          mlflow run Project
+          mlflow run Project --env-manager=local 
