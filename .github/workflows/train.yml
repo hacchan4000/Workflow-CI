@@ -47,4 +47,4 @@ jobs:
       # 5. Run MLflow Project (this now works because conda exists)
       - name: Run MLflow Project
         run: |
-          mlflow run project
+          mlflow run Project
