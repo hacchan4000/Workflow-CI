@@ -47,9 +47,4 @@ jobs:
         run: |
           mlflow run Project --env-manager=local 
 
-      # 6. Upload trained model artifacts
-      - name: Upload model artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: trained-model
-          path: mlruns/
+  
