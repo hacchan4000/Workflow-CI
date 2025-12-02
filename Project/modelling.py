@@ -5,7 +5,7 @@ import numpy as np
 import math
 from sklearn.svm import SVR
 
-df = pd.read_csv("Project/aapl.us.txt_preprocessing.csv")
+df = pd.read_csv("aapl.us.txt_preprocessing.csv")
 dataset = df["Close_norm"].values.reshape(-1, 1)
 
 def create_window(data, window_size=60):
