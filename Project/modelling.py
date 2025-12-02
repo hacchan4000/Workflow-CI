@@ -33,25 +33,30 @@ mlflow.set_tracking_uri(os.environ.get("MLFLOW_TRACKING_URI", "mlruns"))
 mlflow.set_experiment("ci_retrain_model")
 
 mlflow.autolog()
-
 with mlflow.start_run():
     model = SVR(kernel="rbf", C=100, gamma=0.1)
-    
-    
-    input_example = X_test[:1]   # one row example
-    signature = mlflow.models.signature.infer_signature(X_train, model.predict(X_train))
 
-    # Log metrics and model
-    mlflow.sklearn.log_model(model, 
-                             name="model",
-                             input_example=input_example,
-                             signature=signature
-                             )
+    # 1️⃣ Fit dulu
     model.fit(X_train, y_train)
-    akurasi = model.score(X_test,y_test)
-    
-    predictions = model.predict(X_test)
-    rmse = np.sqrt(mean_squared_error(y_test, predictions))
-    print("RMSE:", rmse)
 
+    # 2️⃣ Baru boleh infer signature
+    signature = mlflow.models.signature.infer_signature(
+        X_train, 
+        model.predict(X_train)
+    )
 
+    # 3️⃣ Input example
+    input_example = X_test[:1]
+
+    # 4️⃣ Log model
+    mlflow.sklearn.log_model(
+        model,
+        name="model",
+        input_example=input_example,
+        signature=signature
+    )
+
+    # 5️⃣ Metik akurasi
+    akurasi = model.score(X_test, y_test)
+    mlflow.log_metric("akurasi", akurasi)
+    print("berhasil")
