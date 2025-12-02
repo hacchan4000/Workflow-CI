@@ -35,21 +35,22 @@ mlflow.autolog()
 
 with mlflow.start_run():
     model = SVR(kernel="rbf", C=100, gamma=0.1)
-    model.fit(X_train, y_train)
+    
     
     input_example = X_test[:1]   # one row example
     signature = mlflow.models.signature.infer_signature(X_train, model.predict(X_train))
 
-
-    predictions = model.predict(X_test)
-    rmse = np.sqrt(mean_squared_error(y_test, predictions))
-    print("RMSE:", rmse)
-
     # Log metrics and model
-    mlflow.log_metric("RMSE", rmse)
     mlflow.sklearn.log_model(model, 
                              name="model",
                              input_example=input_example,
                              signature=signature
                              )
+    model.fit(X_train, y_train)
+    akurasi = model.score(X_test,y_test)
+    
+    predictions = model.predict(X_test)
+    rmse = np.sqrt(mean_squared_error(y_test, predictions))
+    print("RMSE:", rmse)
+
 

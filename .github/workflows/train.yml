@@ -2,32 +2,54 @@ name: CI MLflow
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
+
+env:
+  CSV_URL: "Project/aapl.us.txt_preprocessing.csv"
 
 jobs:
   train:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      # Set Python
-      - name: Setup Python 3.12
-        uses: actions/setup-python@v4
+      # 0. Install Miniconda (fix for conda NOT found)
+      - name: Install Miniconda
+        uses: conda-incubator/setup-miniconda@v2
         with:
+          activate-environment: ""
+          auto-update-conda: true
           python-version: "3.12"
 
-      # Install MLflow (global)
+      # 1. Set up Python 3.12
+      - name: Set up Python 3.12.7
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12.7"
+
+      # Check Env Variables
+      - name: Check Env
+        run: |
+          echo $CSV_URL
+
+      # 4. Install mlflow (INSIDE conda)
       - name: Install MLflow
         run: |
           pip install mlflow
 
-      # RUN MLflow Project
-      - name: Train ML Model via MLflow Project
+      # 5. Run MLflow Project (this now works because conda exists)
+      - name: Run MLflow Project
         run: |
-          mlflow run Project --env-manager=local
+          mlflow run Project --env-manager=local 
 
-    
+      # 6. Upload trained model artifacts
+      - name: Upload model artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: trained-model
+          path: mlruns/
