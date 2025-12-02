@@ -28,7 +28,8 @@ X_test,  y_test  = create_window(test_data, 60)
 
 
 
-mlflow.set_tracking_uri("mlruns")
+import os
+mlflow.set_tracking_uri(os.environ.get("MLFLOW_TRACKING_URI", "mlruns"))
 mlflow.set_experiment("ci_retrain_model")
 
 mlflow.autolog()
