@@ -46,12 +46,5 @@ jobs:
 
       # 5. Run MLflow Project (this now works because conda exists)
       - name: Run MLflow Project
-        env:
-          # set absolute path to mlruns inside the workspace
-          MLFLOW_TRACKING_URI: ${{ github.workspace }}/mlruns
         run: |
-          # make sure the folder exists and is writable
-          mkdir -p "$MLFLOW_TRACKING_URI"
-          # run mlflow project using local env manager (or conda, sesuai settingmu)
-          mlflow run Project --env-manager=local
-  
+          mlflow run project
